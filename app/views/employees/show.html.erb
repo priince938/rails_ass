@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<% if @employee.avatar?   %>
+
+<img src="<%= @employee.avatar  %>" class="float-right" style="width:200px;height:200px;">
+<% else %>
+<img src="/uploads/employee/avatar/21/download__1_.png" class="float-right">
+<% end %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+
+ <p>
+  <strong>City:</strong><%= City.find(@employee.city_id).name %>
+  
+</p>
+
+<p>
+  <strong>Manager:</strong>
+   <% if @employee.manager_id  %>
+  <%=   Employee.find(@employee.manager_id ).name %>
+  <% end %>
+</p>
+
+<!-- use of helper to check the user is admin or not  -->
+<%= edit_emp(@employee) %> 
+
+<%= link_to 'Back', employees_path %>

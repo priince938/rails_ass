@@ -1,0 +1,18 @@
+// TO disable the button and show the message for add employee form
+var count = <%= @count %>
+console.log(count);
+if(count < 4){
+$("#submit").attr("disabled", false);
+
+$("#result").html("Hello welcome to this city "+count);
+
+
+}
+else{
+ $("#submit").attr("disabled", true);
+
+$("#result").html("No we are full in this city "+count);
+
+}
+
+

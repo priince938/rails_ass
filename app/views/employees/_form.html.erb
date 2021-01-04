@@ -1,0 +1,54 @@
+
+<%= form_with(model: employee, local: true) do |form| %>
+  <% if employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+        <% employee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name ,class:"form-control"%>
+  </div>
+  <br>
+  <br>
+   <div class="form-row">
+      <div class="form-group col-md-4">
+      <%= form.label :city_id %>
+      <%= form.collection_select :city_id, City.order(:name),:id,:name, include_blank: true %>
+      <span id="result"></span>
+      </div>
+
+      <div class="form-group col-md-4">
+          <%= form.label :manager_id %>
+          <%= form.collection_select :manager_id, Employee.order(:name),:id,:name,include_blank: true,class:"form-control" %>
+      </div>
+    </div>
+  <div class="field">
+  <%= form.label :avatar %>
+    <%= form.file_field :avatar  %>
+  <% if @employee.avatar? %>
+    <%= image_tag(@employee.avatar_url)  %>
+    <br>
+    <%= form.check_box :remove_avatar %>Remove avatar
+  <% end %>
+    
+  </div>
+
+  <div class="actions">
+    <%= form.submit id:"submit" %>
+  </div>
+<% end %>
+
+
+
+
+
+
+

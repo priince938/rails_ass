@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Employees</h1>
+
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>Manager</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+       
+          <td><%= City.find(employee.city_id).name %></td>
+        <% if employee.manager_id  %>
+          <td><%= Employee.find(employee.manager_id).name %></td>
+        <% else %>
+           <td></td>
+        <% end %>
+      
+        <td><%= link_to 'Show', employee %></td>
+        
+        <!-- use of helper to check the user is admin or not  -->
+        <td><%=  edit_emp(employee) %></td>
+        <% if user_signed_in? && current_user.admin %>
+        <td><%= button_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<!-- use of helper to check the user is admin or not  -->
+<%= new_emp %>
+
+
+
+
+
+
+<br>
+<br><br>
+<%= will_paginate @city ,renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
